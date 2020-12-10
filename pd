@@ -1,0 +1,15 @@
+#!/bin/sh
+
+if [ -n "$1" ]
+then
+    docker run \
+    --net=host \
+    -v "${PWD}/app:/usr/src/app" \
+    --rm \
+    pandas:1.1.5 $1
+else 
+    docker run \
+    --net=host \
+    --rm \
+    pandas:1.1.5
+fi

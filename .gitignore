@@ -1,0 +1,7 @@
+app/modules/__pycache__
+
+app/output/*
+!app/output/.gitkeep
+
+app/source/*
+!app/source/.gitkeep
