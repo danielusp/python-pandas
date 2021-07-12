@@ -12,7 +12,7 @@ def mongo(db, collection):
     mydb = myclient[db]
     mycol = mydb[collection]
 
-    return mycol.find()
+    return mycol
 
 #######################
 #
@@ -21,5 +21,23 @@ def mongo(db, collection):
 #
 #######################
 def normalize_data(mongo_instance):
+        mongo_instance = mongo_instance.find()
         normalized = json_normalize(list(mongo_instance))
         return pd.DataFrame(normalized)
+
+
+#######################
+#
+# Apply a aggregate query
+# to a Mongo instance
+#
+#######################
+def aggregate(mongo_instance, pipeline):
+    #Make empty dataframe
+    df = pd.DataFrame()
+
+    #add each doc as a new row in dataframe
+    for doc in mongo_instance.aggregate(pipeline):
+        df = df.append(doc, ignore_index=True)
+    
+    return df
